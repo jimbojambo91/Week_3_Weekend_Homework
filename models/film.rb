@@ -31,6 +31,14 @@ class Film
     SqlRunner.run(sql)
   end
 
+  def tickets_sold
+    sql = "SELECT f.*  FROM films f
+           INNER JOIN tickets t
+           ON f.id = t.film_id"
+    return Film.map_items(sql).length      
+    
+  end
+
   def self.all()
     sql = "SELECT * FROM films"
     return Film.map_items(sql)
