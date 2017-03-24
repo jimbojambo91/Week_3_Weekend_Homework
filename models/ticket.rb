@@ -1,5 +1,6 @@
 require_relative("../db/sql_runner")
-
+require_relative('customer')
+require_relative('film')
 
 class Ticket
 
@@ -16,6 +17,23 @@ class Ticket
     sql = "INSERT INTO tickets (customer_id, film_id) VALUES (#{ @customer_id }, #{film_id}) RETURNING id"
     ticket = SqlRunner.run( sql ).first
     @id = ticket['id'].to_i
+    
+    sql = "SELECT f.price FROM films f 
+          WHERE f.id = #{@film_id}"
+    ticket_price = SqlRunner.run(sql).first()['price'].to_f
+    sql = "SELECT c.funds, c.id FROM customers c
+          WHERE c.id = #{@customer_id}"
+    customer_funds = SqlRunner.run(sql).first()['funds'].to_f
+    customer_id = SqlRunner.run(sql).first()['id'].to_i
+    customer_funds -= ticket_price
+    sql = "UPDATE customers 
+          SET (funds) 
+          = (#{customer_funds})
+          WHERE id = #{customer_id}"
+    SqlRunner.run(sql)
+
+    # customer.funds = customer_funds
+    # Customer.update
   end
 
   def delete()
