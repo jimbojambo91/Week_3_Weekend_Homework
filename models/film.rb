@@ -46,7 +46,7 @@ class Film
     sql = "SELECT * FROM screenings WHERE id = #{screenings_count}"
     screening = SqlRunner.run(sql)
     screening = screening.map { |screening| Screening.new(screening) }
-    binding.pryx
+    binding.pry
   end
 
 
