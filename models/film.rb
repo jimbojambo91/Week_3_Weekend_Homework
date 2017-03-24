@@ -36,9 +36,9 @@ class Film
     sql = "SELECT f.*  FROM films f
            INNER JOIN tickets t
            ON f.id = t.film_id"
-    return Film.map_items(sql).length      
-    
+    return Film.map_items(sql).length 
   end
+
 
   def customers()
     sql = " SELECT c.* FROM customers c

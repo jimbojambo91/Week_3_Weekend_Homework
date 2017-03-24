@@ -16,14 +16,16 @@ CREATE TABLE films(
   price FLOAT
 );
 
-CREATE TABLE tickets(
-  id SERIAL4 PRIMARY KEY,
-  customer_id INT2 REFERENCES customers(id),
-  film_id INT2 REFERENCES films(id)
-);
-
 CREATE TABLE screenings(
   id SERIAL4 PRIMARY KEY,
   show_time TIME,
   film_id INT2 REFERENCES films(id)
 );
+
+CREATE TABLE tickets(
+  id SERIAL4 PRIMARY KEY,
+  customer_id INT2 REFERENCES customers(id),
+  film_id INT2 REFERENCES films(id),
+  screening_id INT2 REFERENCES screenings(id)
+);
+
