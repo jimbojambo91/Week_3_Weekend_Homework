@@ -32,8 +32,6 @@ class Ticket
           WHERE id = #{customer_id}"
     SqlRunner.run(sql)
 
-    # customer.funds = customer_funds
-    # Customer.update
   end
 
   def delete()

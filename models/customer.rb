@@ -39,6 +39,10 @@ class Customer
     return Film.map_items(sql)
   end
 
+  def tickets_bought()
+    return films.length    
+  end
+
   def self.all()
     sql = "SELECT * FROM customers"
     return Customer.map_items(sql)
