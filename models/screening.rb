@@ -30,12 +30,7 @@ class Screening
     SqlRunner.run(sql)
   end
 
-  def self.most_popular_screening(film)
-    screenings = self.all()
-    binding.pry
-    # sql = "SELECT COUNT(screening_id) FROM tickets WHERE tickets.screening_id = 7;"
   
-  end
 
   def self.all()
     sql = "SELECT * FROM screenings"

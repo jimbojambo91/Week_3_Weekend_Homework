@@ -39,6 +39,29 @@ class Film
     return Film.map_items(sql).length 
   end
 
+  def most_popular_screening()
+    # sql = "SELECT COUNT(t.screening_id)FROM tickets t WHERE t.film_id = #{@id}  GROUP BY screening_id ORDER BY COUNT (t.screening_id) DESC;"
+
+    sql = "SELECT t.screening_id, COUNT(t.screening_id) FROM tickets t WHERE t.film_id = #{@id} GROUP BY screening_id, screening_id ORDER BY COUNT (t.screening_id) DESC"
+    screenings_count = SqlRunner.run(sql)
+    screenings_count = screenings_count.map { |screening| screening  }.first()['screening_id']
+    sql = "SELECT * FROM screenings WHERE id = #{screenings_count}"
+    screening = SqlRunner.run(sql)
+    screening = screening.map { |screening| Screening.new(screening) }
+    binding.pry
+
+
+    
+    def self.find_by_id(id)
+      db = PG.connect({dbname: 'bounty_hunters', host: 'localhost'})
+      result = sql = "SELECT * FROM bounties WHERE id = #{id}"
+      db.close
+      result.map{|bounty_details| Bounty.new(bounty_details)}
+      return result.first
+    end
+
+  end
+
 
   def customers()
     sql = " SELECT c.* FROM customers c
